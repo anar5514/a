@@ -7,13 +7,13 @@ using System.Windows.Input;
 
 namespace Threading.Commands
 {
-    public class PauseCommandWithEncryptioncs : ICommand
+    public class PauseCommandWithEncryption : ICommand
     {
         public MainWindowViewModel MainWindowViewModel { get; set; }
 
         public event EventHandler CanExecuteChanged;
 
-        public PauseCommandWithEncryptioncs(MainWindowViewModel MainWindowViewModel)
+        public PauseCommandWithEncryption(MainWindowViewModel MainWindowViewModel)
         {
             this.MainWindowViewModel = MainWindowViewModel;
         }

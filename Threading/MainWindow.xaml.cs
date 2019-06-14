@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -22,8 +24,7 @@ namespace Threading
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            
+        {            
             if (!File.Exists("text.txt"))
             {
                 using (StreamWriter writer = new StreamWriter("text.txt"))
@@ -49,13 +50,12 @@ namespace Threading
                     for (int i = 0; i < arr.Length; i++)
                     {
                         writer.WriteLine(arr[i] + "sadsadsadsad");
-                    }
-
-                    
+                    }        
                 }
             }
-
-
         }
+
+
+
     }
 }

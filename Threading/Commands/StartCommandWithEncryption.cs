@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Threading
+namespace Threading.Commands
 {
-    public class StartCommand : ICommand
+    public class StartCommandWithEncryption : ICommand
     {
         public MainWindowViewModel MainWindowViewModel { get; set; }
 
         public event EventHandler CanExecuteChanged;
 
-        public StartCommand(MainWindowViewModel MainWindowViewModel)
+        public StartCommandWithEncryption(MainWindowViewModel MainWindowViewModel)
         {
             this.MainWindowViewModel = MainWindowViewModel;
         }
@@ -27,9 +25,7 @@ namespace Threading
 
         public void Execute(object parameter)
         {
-            MainWindowViewModel.Start1();
+            MainWindowViewModel.Start();
         }
-
-        
     }
 }
