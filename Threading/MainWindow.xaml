@@ -5,8 +5,70 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Threading"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="60"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <WrapPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Center">
+            <Button Content="STOP" Width="70" Height="35" Margin="50 0 0 0"
+                        Command="{Binding StopCommand}"/>
+            <Button Content="PAUSE" Width="70" Height="35" Margin="30 0 0 0"
+                        Command="{Binding PauseCommand}"/>
+            <Button  Content="RESUME" Width="70" Height="35" Margin="30 0 0 0"
+                        Command="{Binding ResumeCommand}"/>
+        </WrapPanel>
+
+        <WrapPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center">
+            <Button Content="STOP" Width="70" Height="35" Margin="50 0 0 0"
+                        Command="{Binding StopCommand}"/>
+            <Button Content="PAUSE" Width="70" Height="35" Margin="30 0 0 0"
+                        Command="{Binding PauseCommand}"/>
+            <Button  Content="RESUME" Width="70" Height="35" Margin="30 0 0 0"
+                        Command="{Binding ResumeCommand}"/>
+        </WrapPanel>
+
+        <Button Grid.Row="1" Content="START" Width="350" Height="50" 
+                    Command="{ Binding StartCommand}"/>
+
+        <Button Grid.Row="1" Grid.Column="1" Content="START" Width="350" Height="50" 
+                    Command="{ Binding StartCommand}"/>
+
+        <ListView Grid.Row="2" Grid.Column="0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Content" Width="400">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding }"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <ListView Grid.Row="2" Grid.Column="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Content" Width="400">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text=""/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
         
     </Grid>
 </Window>
