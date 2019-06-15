@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -20,12 +21,17 @@ namespace Threading.Commands
 
         public bool CanExecute(object parameter)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
+        [Obsolete]
         public void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            if (MainWindowViewModel.Encrypt_thread.ThreadState == ThreadState.Suspended 
+                && MainWindowViewModel.Encrypt_thread.ThreadState != ThreadState.Stopped)
+            {
+                MainWindowViewModel.Encrypt_thread.Resume();
+            }
         }
     }
 }

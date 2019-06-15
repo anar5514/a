@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Threading
+namespace Threading.Commands
 {
-    public class PauseCommand : ICommand
+    public class StopCommandWithEncryption : ICommand
     {
         public MainWindowViewModel MainWindowViewModel { get; set; }
 
         public event EventHandler CanExecuteChanged;
 
-        public PauseCommand(MainWindowViewModel MainWindowViewModel)
+        public StopCommandWithEncryption(MainWindowViewModel MainWindowViewModel)
         {
             this.MainWindowViewModel = MainWindowViewModel;
         }
@@ -23,9 +24,14 @@ namespace Threading
             return true;
         }
 
+        [Obsolete]
         public void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            if (MainWindowViewModel.Encrypt_thread.ThreadState 
+                != ThreadState.Aborted)
+            {
+                MainWindowViewModel.Encrypt_thread.Abort();
+            }
         }
     }
 }

@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Threading.Commands
+namespace Threading
 {
-    public class StartCommandWithEncryption : ICommand
+    public class StopCommand : ICommand
     {
         public MainWindowViewModel MainWindowViewModel { get; set; }
 
         public event EventHandler CanExecuteChanged;
 
-        public StartCommandWithEncryption(MainWindowViewModel MainWindowViewModel)
+        public StopCommand(MainWindowViewModel MainWindowViewModel)
         {
             this.MainWindowViewModel = MainWindowViewModel;
         }
@@ -23,9 +24,14 @@ namespace Threading.Commands
             return true;
         }
 
+        [Obsolete]
         public void Execute(object parameter)
         {
-            MainWindowViewModel.Start();
+            if (MainWindowViewModel.Decrypt_thread.ThreadState
+                 != ThreadState.Aborted)
+            {
+                MainWindowViewModel.Decrypt_thread.Abort();
+            }
         }
     }
 }

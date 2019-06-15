@@ -15,13 +15,13 @@ namespace Threading
         public ResumeCommand ResumeCommand => new ResumeCommand(this);
         public PauseCommand PauseCommand => new PauseCommand(this);
 
-        StopCommandWithEncryption StopCommandWithEncryption => new StopCommandWithEncryption(this);
-        PauseCommandWithEncryption PauseCommandWithEncryptioncs => new PauseCommandWithEncryption(this);
-        ResumeCommandWithEncryption ResumeCommandWithEncryption => new ResumeCommandWithEncryption(this);
-        StartCommandWithEncryption StartCommandWithEncryption => new StartCommandWithEncryption(this);
+        public StopCommandWithEncryption StopCommandWithEncryption => new StopCommandWithEncryption(this);
+        public PauseCommandWithEncryption PauseCommandWithEncryption => new PauseCommandWithEncryption(this);
+        public ResumeCommandWithEncryption ResumeCommandWithEncryption => new ResumeCommandWithEncryption(this);
+        public StartCommandWithEncryption StartCommandWithEncryption => new StartCommandWithEncryption(this);
 
         public Thread Encrypt_thread;
-        public Thread Dectypt_thread;
+        public Thread Decrypt_thread;
 
         ObservableCollection<string> encryptList;
         public ObservableCollection<string> EncryptList
@@ -51,7 +51,7 @@ namespace Threading
             }
         }
 
-        public void Start()
+        public void StartEncryption()
         {
             if (Encrypt_thread.ThreadState == ThreadState.Unstarted)
             {
@@ -59,11 +59,12 @@ namespace Threading
             }
         }
 
-        public void Start1()
+        public void StartDecryption()
         {
-            if (Dectypt_thread.ThreadState == ThreadState.Unstarted && EncryptList.Count != 0)
+            if (Decrypt_thread.ThreadState == 
+                ThreadState.Unstarted && EncryptList.Count != 0)
             {
-                Dectypt_thread.Start();
+                Decrypt_thread.Start();
             }
         }
 
@@ -76,28 +77,28 @@ namespace Threading
             {
                 App.Current.Dispatcher.Invoke(() =>
                 EncryptList.Add(Name));
-                System.Threading.Thread.Sleep(1000);
+                Thread.Sleep(1000);
             }
         }
 
-        void Dectypt()
+        void Decrypt()
         {
             for (int i = 0; i < EncryptList.Count; i++)
             {
                 App.Current.Dispatcher.Invoke(() =>
                  DecryptList.Add(EncryptDecrypt.Decrypt(EncryptList[i]))
                     );
-                System.Threading.Thread.Sleep(1000);
+                Thread.Sleep(1000);
             }
-            Dectypt_thread.Abort();
+            Decrypt_thread.Abort();
         }
 
         public MainWindowViewModel()
         {
             EncryptList = new ObservableCollection<string>();
             DecryptList = new ObservableCollection<string>();
-            Encrypt_thread = new System.Threading.Thread(new System.Threading.ThreadStart(Encrypt));
-            Dectypt_thread = new System.Threading.Thread(new System.Threading.ThreadStart(Dectypt));
+            Encrypt_thread = new Thread(new ThreadStart(Encrypt));
+            Decrypt_thread = new Thread(new ThreadStart(Decrypt));
         }
 
     }

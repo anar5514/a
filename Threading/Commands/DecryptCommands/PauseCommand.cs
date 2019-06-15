@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -9,13 +8,13 @@ using System.Windows.Input;
 
 namespace Threading
 {
-    public class StartCommand : ICommand
+    public class PauseCommand : ICommand
     {
         public MainWindowViewModel MainWindowViewModel { get; set; }
 
         public event EventHandler CanExecuteChanged;
 
-        public StartCommand(MainWindowViewModel MainWindowViewModel)
+        public PauseCommand(MainWindowViewModel MainWindowViewModel)
         {
             this.MainWindowViewModel = MainWindowViewModel;
         }
@@ -25,11 +24,14 @@ namespace Threading
             return true;
         }
 
+        [Obsolete]
         public void Execute(object parameter)
         {
-            MainWindowViewModel.Start1();
+            if (MainWindowViewModel.Decrypt_thread.ThreadState
+                != ThreadState.Stopped)
+            {
+                MainWindowViewModel.Decrypt_thread.Suspend();
+            }
         }
-
-        
     }
 }
